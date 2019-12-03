@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for rate in context %}
+{{ rate.uah }}
+{{ rate.usd }}
+{{ rate.date_of_rate }}
+{% endfor %}
+{% endblock content %}

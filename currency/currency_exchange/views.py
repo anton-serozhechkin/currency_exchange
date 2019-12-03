@@ -10,7 +10,7 @@ def main(request):
         error = umessages.ERROR_FORM_COURSE
 
     context = []
-    context.append({'main_rate': main_rate, 'option_rate': option_rate})
+    context.append({'main_rate': main_rate})
     return render(request, 'currency_exchange/index.html', locals())
 
 def option_rate(request):

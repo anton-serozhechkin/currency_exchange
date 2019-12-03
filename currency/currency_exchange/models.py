@@ -7,6 +7,7 @@ class MainRate(models.Model):
     usd = models.IntegerField('Number of dollar units', default=1) 
     date_of_rate = models.DateField('Date of rate')
     created = models.DateTimeField('Date of creation', default=timezone.now)
+    
     def __str__(self):
         return ('Rate, created by {}').format(self.created)
 
