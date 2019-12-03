@@ -10,7 +10,10 @@ class FormMainRate(forms.ModelForm):
 
     class Meta:
         model = MainRate
-        fields = ('uah', 'usd', 'date_of_rate')
+        fields = ['uah',
+                  'usd',
+                  'date_of_rate'
+                ]
 
 class FormOptionRate(forms.ModelForm):
     

@@ -23,23 +23,19 @@ def option_rate(request):
     return render(request, 'currency_exchange/option_rate.html', locals())
 
 def data_form_mainrate(request):
-    form = FormMainRate()
-    if request.method == 'POST' and form.is_valid():
-        post = form.save(commit=False)
-        uah = form.cleaned_data['uah']
-        usd = form.cleaned_data['usd']
-        date_of_rate = form.cleaned_data['date_of_rate']
-        post.user = request.user
-        post.save()
+    form = FormMainRate(request.POST or None)
+    if form.is_valid():
+        form.save()
         form = FormMainRate()
         #return redirect('')
-    args = {'form': form}
-    return render(request, 'base.html', locals())
+    context = {'form': form}
+    return render(request, 'currency_exchange/form_main_rate.html', context)
 
 def data_form_optionrate(request):
-    form = FormOptionRate()
-    if request.method == 'POST' and form.is_valid():
-        pass
-
-
-    return render(request, 'currency_exchange/form_option_rate.html', locals())
+    form = FormOptionRate(request.POST or None)
+    if form.is_valid():
+        form.save()
+        form = FormOptionRate()
+        #return redirect('')
+    context = {'form': form}
+    return render(request, 'currency_exchange/form_option_rate.html', context)

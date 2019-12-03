@@ -7,10 +7,8 @@ class MainRate(models.Model):
     usd = models.IntegerField('Number of dollar units', default=1) 
     date_of_rate = models.DateField('Date of rate')
     created = models.DateTimeField('Date of creation', default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-
     def __str__(self):
-        return ('Rate, created by {}, {}').format(self.author, self.created)
+        return ('Rate, created by {}').format(self.created)
 
     class Meta:
         verbose_name = 'Main rate of currency'
@@ -21,10 +19,9 @@ class OptionRate(models.Model):
     usd = models.IntegerField('Number of dollar units', default=1) 
     date_of_rate = models.DateField('Date of rate')
     created = models.DateTimeField('Date of creation', default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return ('Rate, created by {}, {}').format(self.author, self.created)
+        return ('Rate, created  {}').format(self.created)
 
     class Meta:
         verbose_name = 'Option rate of currency(purchase and sale)'
