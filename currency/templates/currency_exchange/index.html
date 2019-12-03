@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if not error %}
 <table>
     <thead>
         <tr>
             <td>Currency</td>
+            <th>
+                UAH-USD
+            </th>
             <td>Purchase</td>
             <td>Sale</td>
             <td>Official rate</td>
@@ -12,9 +16,6 @@
     {% for rate in main_rate %}
     <tbody>
         <tr>
-            <th>
-                USD
-            </th>
             <td>
                 <span>
                     <span>
@@ -47,4 +48,7 @@
     </tbody>
     {% endfor %}
 </table>
+{% else %}
+<p>{{ error }}</p>
+{% endif %}
 {% endblock content %}

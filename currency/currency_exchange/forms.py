@@ -4,7 +4,7 @@ from .models import MainRate
 
 class FormMainRate(forms.ModelForm):
     
-    uah = forms.DecimalField(max_digits=5, decimal_places=3)
+    uah_official = forms.DecimalField(max_digits=5, decimal_places=3)
     uah_purchase = forms.DecimalField(max_digits=5, decimal_places=3)
     uah_sale = forms.DecimalField(max_digits=5, decimal_places=3)
     usd = forms.IntegerField()
@@ -12,7 +12,7 @@ class FormMainRate(forms.ModelForm):
 
     class Meta:
         model = MainRate
-        fields = ['uah',
+        fields = ['uah_official',
                   'uah_purchase',
                   'uah_sale',
                   'usd',

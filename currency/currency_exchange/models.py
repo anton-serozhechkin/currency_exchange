@@ -15,3 +15,4 @@ class MainRate(models.Model):
 
     class Meta:
         verbose_name = 'Main rate of currency'
+        verbose_name_plural = 'Rates of currency'
