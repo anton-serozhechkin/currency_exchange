@@ -1,8 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
-{% for rate in context %}
-{{ rate.uah }}
-{{ rate.usd }}
-{{ rate.date_of_rate }}
-{% endfor %}
+<table>
+    <thead>
+        <tr>
+            <td>Currency</td>
+            <td>Purchase</td>
+            <td>Sale</td>
+            <td>Official rate</td>
+        </tr>
+    </thead>
+    {% for rate in main_rate %}
+    <tbody>
+        <tr>
+            <th>
+                USD
+            </th>
+            <td>
+                <span>
+                    <span>
+                        {{ rate.uah_official }}
+                    </span>
+                </span>
+            </td>
+            <td>
+                <span>
+                    <span>
+                        {{ rate.uah_purchase }}
+                    </span>
+                </span>
+            </td>
+            <td>
+                <span>
+                    <span>
+                        {{ rate.uah_sale }}
+                    </span>
+                </span>
+            </td>
+            <td>
+                <span>
+                    <span>
+                        {{ rate.date_of_rate }}
+                    </span>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
 {% endblock content %}

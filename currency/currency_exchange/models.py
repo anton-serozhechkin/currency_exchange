@@ -3,26 +3,15 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 class MainRate(models.Model):
-    uah = models.DecimalField('Rate of ukrainian hryvnia', max_digits=4, decimal_places=2)
-    usd = models.IntegerField('Number of dollar units', default=1) 
+    uah_official = models.DecimalField('Rate of ukrainian hryvnia', max_digits=5, decimal_places=3, default='0')
+    uah_purchase = models.DecimalField('Purchase rate of ukrainian hryvnia', max_digits=5, decimal_places=3, default='0')
+    uah_sale = models.DecimalField('Sale rate of ukrainian hryvnia', max_digits=5, decimal_places=3, default='0')
+    usd = models.IntegerField('Number of dollar units', default=1)
     date_of_rate = models.DateField('Date of rate')
     created = models.DateTimeField('Date of creation', default=timezone.now)
     
     def __str__(self):
-        return ('Rate, created by {}').format(self.created)
+        return ('Rate, created  {} , official rate: {}').format(self.created, self.uah_official)
 
     class Meta:
         verbose_name = 'Main rate of currency'
-
-class OptionRate(models.Model):
-    uah_purchase = models.DecimalField('Purchase rate of ukrainian hryvnia', max_digits=4, decimal_places=2)
-    uah_sale = models.DecimalField('Sale rate of ukrainian hryvnia', max_digits=4, decimal_places=2)
-    usd = models.IntegerField('Number of dollar units', default=1) 
-    date_of_rate = models.DateField('Date of rate')
-    created = models.DateTimeField('Date of creation', default=timezone.now)
-
-    def __str__(self):
-        return ('Rate, created  {}').format(self.created)
-
-    class Meta:
-        verbose_name = 'Option rate of currency(purchase and sale)'
