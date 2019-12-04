@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
+{% load googlecharts %}
 {% block content %}
 {% if not error %}
 <table>
     <thead>
         <tr>
-            <td>Currency</td>
             <th>
                 UAH-USD
             </th>
@@ -13,7 +13,7 @@
             <td>Official rate</td>
         </tr>
     </thead>
-    {% for rate in main_rate %}
+    {% for rate in main_rate_today %}
     <tbody>
         <tr>
             <td>
@@ -48,6 +48,16 @@
     </tbody>
     {% endfor %}
 </table>
+{% googlecharts %}
+    {% for rate in main_rate %}
+    {% data "Currency rate" %} 
+        {% col 'number' "Official rate" %}{{ rate.uah_official }}{% endcol %} 
+        {% col 'number' "Purchase rate" %}{{ rate.uah_purchase }}{% endcol %} 
+        {% col 'number' "Sale rate" %}{{ rate.uah_sale }}{% endcol %} 
+        {% col 'date' "Date" %}{{ rate.date_of_rate }}{% endcol %} 
+    {% enddata %}
+    {% endfor %}
+{% endgooglecharts %}
 {% else %}
 <p>{{ error }}</p>
 {% endif %}

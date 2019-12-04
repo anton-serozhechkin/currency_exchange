@@ -12,7 +12,7 @@ class MainRateAdmin(admin.ModelAdmin):
     
     """
     
-    list_display = ('uah_official', 'uah_purchase', 'uah_sale', 'usd', 'date_of_rate')
+    list_display = ('uah_official', 'uah_purchase', 'uah_sale', 'usd')
     list_filter = ('date_of_rate', )
     search_fields = ('date_of_rate', )
 
