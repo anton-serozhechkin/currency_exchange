@@ -2,63 +2,36 @@
 {% load googlecharts %}
 {% block content %}
 {% if not error %}
-<table>
-    <thead>
-        <tr>
-            <th>
-                UAH-USD
-            </th>
-            <td>Purchase</td>
-            <td>Sale</td>
-            <td>Official rate</td>
-        </tr>
-    </thead>
-    {% for rate in main_rate_today %}
-    <tbody>
-        <tr>
-            <td>
-                <span>
-                    <span>
-                        {{ rate.uah_official }}
-                    </span>
-                </span>
-            </td>
-            <td>
-                <span>
-                    <span>
-                        {{ rate.uah_purchase }}
-                    </span>
-                </span>
-            </td>
-            <td>
-                <span>
-                    <span>
-                        {{ rate.uah_sale }}
-                    </span>
-                </span>
-            </td>
-            <td>
-                <span>
-                    <span>
-                        {{ rate.date_of_rate }}
-                    </span>
-                </span>
-            </td>
-        </tr>
-    </tbody>
-    {% endfor %}
-</table>
-{% googlecharts %}
-    {% for rate in main_rate %}
-    {% data "Currency rate" %} 
-        {% col 'number' "Official rate" %}{{ rate.uah_official }}{% endcol %} 
-        {% col 'number' "Purchase rate" %}{{ rate.uah_purchase }}{% endcol %} 
-        {% col 'number' "Sale rate" %}{{ rate.uah_sale }}{% endcol %} 
-        {% col 'date' "Date" %}{{ rate.date_of_rate }}{% endcol %} 
-    {% enddata %}
-    {% endfor %}
-{% endgooglecharts %}
+<h2>Currency rate UAH-USD</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Official rate</th>
+              <th>Purchase</th>
+              <th>Sale</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for rate in main_rate %}
+            <tr>
+              <td>{{ rate.uah_official }}</td>
+              <td>{{ rate.uah_purchase }}</td>
+              <td>{{ rate.uah_sale }}</td>
+              <td>{{ rate.date_of_rate }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
 {% else %}
-<p>{{ error }}</p>
+<div class="error-form">
+    <div class="dev-page">
+        <p class="error">
+            {{ error}}
+        </p>
+    </div>
+</div>
 {% endif %}
 {% endblock content %}

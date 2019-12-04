@@ -17,12 +17,12 @@ def main(request):
 
             context - list, which contains dict with main_rate as key
     """
+
+    main_rate = MainRate.objects.order_by('-date_of_rate')
     
-    main_rate = MainRate.objects.order_by('-date_of_rate')[:10]
-    main_rate_today = MainRate.objects.order_by('-date_of_rate')[:1]
     if main_rate:
         context = []        
-        context.append({'main_rate': main_rate, 'main_rate_today': main_rate_today})
+        context.append({'main_rate': main_rate})
     else:
         error = umessages.ERROR_DATA_NOT_FOUND
     return render(request, 'currency_exchange/index.html', locals())
