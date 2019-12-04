@@ -1,8 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="POST">
+{% if not error %}
+<form method="POST" class='form_send_rate'>
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Send rate</button>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Enter official rate</label>
+        {{ form.uah_official }}
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Enter purchase rate</label>
+        {{ form.uah_purchase }}
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Enter sale rate</label>
+        {{ form.uah_sale }}
+    </div>
+    <small id="Help" class="form-text text-muted">Format: dd.ccc</small>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Enter a number of dollar units</label>
+        {{ form.usd }}
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Enter date of this rate</label>
+        {{ form.date_of_rate }}
+        <small id="Help" class="form-text text-muted">Format: yyyy-mm-dd</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit data</button>
 </form>
+{% else %}
+<div class="error-form">
+    <div class="dev-page">
+        <p class="error">
+            {{ error}}
+        </p>
+    </div>
+    <button class="btn btn-danger">
+        <a href="{% url 'data-form-mainrate' %}">
+            Назад
+        </a>
+    </button>
+</div>
+{% endif %}
 {% endblock content %}
