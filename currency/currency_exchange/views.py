@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import MainRate
 from .forms import FormMainRate
-from currency import umessages 
+from currency import umessages
+from django import forms
+
 
 def main(request):
     """
@@ -17,7 +19,7 @@ def main(request):
 
             context - list, which contains dict with main_rate as key
     """
-    
+
     main_rate = MainRate.objects.order_by('-date_of_rate')
     
     if main_rate:
@@ -26,6 +28,7 @@ def main(request):
     else:
         error = umessages.ERROR_DATA_NOT_FOUND
     return render(request, 'currency_exchange/index.html', locals())
+    
 
 def data_form_mainrate(request):
     """
@@ -38,14 +41,30 @@ def data_form_mainrate(request):
             form - form on template, which contains fields from model 
             
             context - dict, which contains form as key
+
+            list_of_values - list with values data_of_rate from db
     """
     form = FormMainRate(request.POST or None)
     
     #check form    
     if form.is_valid():
-        form.save()
-        form = FormMainRate()
-        #after save data in db redirect on main page
-        return redirect('main')
+        date_from_form = form.cleaned_data['date_of_rate']
+        
+        text = MainRate.objects.all().values('date_of_rate')
+        
+        list_of_values = []
+        #add all existing element in list
+        for kl in text:
+            list_of_values.append(kl['date_of_rate'])
+        
+        for date_from_form in list_of_values:
+            #check if date of new rate from form already in db
+            if date_from_form in list_of_values:
+                error = umessages.ERROR_ALREADY_EXIST    
+            else:
+                form.save()
+                form = FormMainRate()
+                #after save data in db redirect on main page
+                return redirect('main')
     context = {'form': form}
-    return render(request, 'currency_exchange/form_main_rate.html', context)
+    return render(request, 'currency_exchange/form_main_rate.html', locals())
