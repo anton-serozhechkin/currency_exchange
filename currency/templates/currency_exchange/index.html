@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if not error %}
+<table>
+    <thead>
+        <tr>
+            <td>Currency</td>
+            <th>
+                UAH-USD
+            </th>
+            <td>Purchase</td>
+            <td>Sale</td>
+            <td>Official rate</td>
+        </tr>
+    </thead>
+    {% for rate in main_rate %}
+    <tbody>
+        <tr>
+            <td>
+                <span>
+                    <span>
+                        {{ rate.uah_official }}
+                    </span>
+                </span>
+            </td>
+            <td>
+                <span>
+                    <span>
+                        {{ rate.uah_purchase }}
+                    </span>
+                </span>
+            </td>
+            <td>
+                <span>
+                    <span>
+                        {{ rate.uah_sale }}
+                    </span>
+                </span>
+            </td>
+            <td>
+                <span>
+                    <span>
+                        {{ rate.date_of_rate }}
+                    </span>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+{% else %}
+<p>{{ error }}</p>
+{% endif %}
+{% endblock content %}
