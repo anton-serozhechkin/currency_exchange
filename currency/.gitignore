@@ -1,0 +1,20 @@
+# IDE
+.idea
+.vscode
+
+# caches
+__pycache__
+
+# logs
+report.log
+django.log
+
+# collectstatic files
+/static/admin
+
+# migration files
+/**/migrations/*.py
+
+# temp storage (reports etc.)
+/temp
+
