@@ -11,6 +11,10 @@ class FormMainRate(forms.ModelForm):
     date_of_rate = forms.DateField()    
 
     class Meta:
+        """
+          model - maternal model
+          fields - shows in form
+        """
         model = MainRate
         fields = ['uah_official',
                   'uah_purchase',
