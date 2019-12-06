@@ -56,15 +56,15 @@ def data_form_mainrate(request):
         #add all existing element in list
         for kl in text:
             list_of_values.append(kl['date_of_rate'])
-        
-        for date_from_form in list_of_values:
-            #check if date of new rate from form already in db
-            if date_from_form in list_of_values:
-                error = umessages.ERROR_ALREADY_EXIST    
-            else:
-                form.save()
-                form = FormMainRate()
-                #after save data in db redirect on main page
-                return redirect('main')
+        if list_of_values:
+            for date_from_form in list_of_values:
+                #check if date of new rate from form already in db
+                if date_from_form in list_of_values:
+                    error = umessages.ERROR_ALREADY_EXIST                   
+        else:
+            form.save()
+            form = FormMainRate()
+            #after save data in db redirect on main page
+            return redirect('main')
     context = {'form': form}
     return render(request, 'currency_exchange/form_main_rate.html', locals())
