@@ -3,6 +3,7 @@ from .models import MainRate
 from .forms import FormMainRate
 from currency import umessages
 from django import forms
+import datetime
 
 
 def main(request):
@@ -45,26 +46,38 @@ def data_form_mainrate(request):
             list_of_values - list with values data_of_rate from db
     """
     form = FormMainRate(request.POST or None)
-    
-    #check form    
-    if form.is_valid():
-        date_from_form = form.cleaned_data['date_of_rate']
+    if request.method == 'POST':
         
-        text = MainRate.objects.all().values('date_of_rate')
-        
-        list_of_values = []
-        #add all existing element in list
-        for kl in text:
-            list_of_values.append(kl['date_of_rate'])
-        if list_of_values:
-            for date_from_form in list_of_values:
-                #check if date of new rate from form already in db
-                if date_from_form in list_of_values:
-                    error = umessages.ERROR_ALREADY_EXIST                   
+        #check form  
+        if form.is_valid():
+
+            date_from_form = form.cleaned_data['date_of_rate']
+
+            text = MainRate.objects.all().values('date_of_rate')
+            
+            list_of_values = []
+
+            #add all existing element in list
+            for kl in text:
+                list_of_values.append(kl['date_of_rate'])
+
+            if list_of_values:
+                for i in list_of_values:
+                    #check if date of new rate from form already in db
+                    if date_from_form in list_of_values:
+                        error = umessages.ERROR_ALREADY_EXIST
+                    else:
+                        form.save()
+                        form = FormMainRate()
+                        #after save data in db redirect on main page
+                        return redirect('main') 
+            else:
+                form.save()
+                form = FormMainRate()
+                #after save data in db redirect on main page
+                return redirect('main')
         else:
-            form.save()
-            form = FormMainRate()
-            #after save data in db redirect on main page
-            return redirect('main')
+            error = umessages.ERROR_NOT_VALID
+            
     context = {'form': form}
     return render(request, 'currency_exchange/form_main_rate.html', locals())
