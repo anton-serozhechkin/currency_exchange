@@ -21,9 +21,9 @@
         {{ form.usd }}
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">Enter date of this rate</label>
-        {{ form.date_of_rate }}
-        <small id="Help" class="form-text text-muted">Format: yyyy-mm-dd</small>
+            <label for="exampleInputPassword1">Enter date of this rate</label>
+            <small id="Help" class="form-text text-muted">Format: yyyy-mm-dd</small>
+            {{ form.date_of_rate }}
     </div>
     <button type="submit" class="btn btn-primary">Submit data</button>
 </form>
@@ -41,4 +41,11 @@
     </button>
 </div>
 {% endif %}
+<script>
+        $(function () {
+        $("#id_date_of_rate").datepicker({
+            format:'yyyy-mm-dd',
+        });
+        });
+</script>
 {% endblock content %}
